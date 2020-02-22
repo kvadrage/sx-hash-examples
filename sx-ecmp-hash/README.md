@@ -8,9 +8,6 @@ Mellanox Spectrum Switches running NOS with SDK API access:
 - Cumulus
 - SONiC
 
-## Build
-`debuild -us -uc`
-
 ## Install
 Copy this `sx_ecmp_hash.py` to Mellanox switch in an environment with SDK API access.
 
