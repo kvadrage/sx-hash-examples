@@ -1,0 +1,24 @@
+{
+  "lag_global_hash": {
+      "hash_params": {
+          "hash_type": "SX_LAG_HASH_TYPE_CRC",
+          "symmetric_hash": false,
+          "seed": 98335670
+      },
+      "hash_fields": [
+          "SX_LAG_HASH_INGRESS_PORT",
+          "SX_LAG_HASH_SMAC_IP",
+          "SX_LAG_HASH_SMAC_NON_IP",
+          "SX_LAG_HASH_DMAC_IP",
+          "SX_LAG_HASH_DMAC_NON_IP",
+          "SX_LAG_HASH_ETHER_IP",
+          "SX_LAG_HASH_ETHER_NON_IP",
+          "SX_LAG_HASH_VID_IP",
+          "SX_LAG_HASH_VID_NON_IP",
+          "SX_LAG_HASH_S_IP",
+          "SX_LAG_HASH_D_IP",
+          "SX_LAG_HASH_L4_SPORT",
+          "SX_LAG_HASH_L4_DPORT"
+      ]
+  }
+}

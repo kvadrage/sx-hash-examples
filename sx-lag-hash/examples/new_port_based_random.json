@@ -1,0 +1,17 @@
+{
+  "lag_port_hash": {
+    "all": {
+      "hash_params": {
+          "hash_type": "SX_LAG_HASH_TYPE_RANDOM",
+          "symmetric_hash": true,
+          "seed": 98335670
+      },
+      "hash_fields_enable": [
+
+      ],
+      "hash_fields": [
+
+      ]
+    }
+  }
+}
