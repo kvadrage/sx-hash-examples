@@ -98,7 +98,7 @@ sw1 [standalone: master] (config) # debug generate dump
 Generated dump sysdump-sw1-20200223-184428.tgz
 sw1 [standalone: master] (config) # 
 ## upload debug dump to external machine for analysis
-sw1 [standalone: master] (config) # file debug-dump upload latest scp://user@x.x.x.x/home/alex/
+sw1 [standalone: master] (config) # file debug-dump upload latest scp://user@x.x.x.x/home/user/
 Uploading file sysdump-sw1-20200223-184428.tgz
 Password (if required): *******
 sw1 [standalone: master] (config) # 
@@ -107,7 +107,7 @@ sw1 [standalone: master] (config) #
 user@srv:~$ tar xf sysdump-sw1-20200223-184428.tgz
 user@srv:~$ cd sysdump-sw1-20200223-184428
 user@srv:~/sysdump-sw1-20200223-184428$ 
-alex@microserver:~/sysdump-sw1-20200223-184428$ cat sdkdump | grep -A 40 "LAG Dump"
+user@srv:~/sysdump-sw1-20200223-184428$ cat sdkdump | grep -A 40 "LAG Dump"
 SDK LAG Dump                       
 ..................................................
 Lag Hash Type                            0
