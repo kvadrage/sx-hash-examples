@@ -1,94 +1,14 @@
 {
   "lag_port_hash": {
-      "all": {
-          "hash_params": {
-              "hash_type": "SX_LAG_HASH_TYPE_CRC",
-              "symmetric_hash": true,
-              "seed": 98335670
-          },
-          "hash_fields_enable": [
-              "SX_LAG_HASH_FIELD_ENABLE_OUTER_L2_NON_IP",
-              "SX_LAG_HASH_FIELD_ENABLE_OUTER_L2_IPV4",
-              "SX_LAG_HASH_FIELD_ENABLE_OUTER_L2_IPV6",
-              "SX_LAG_HASH_FIELD_ENABLE_OUTER_IPV4_NON_TCP_UDP",
-              "SX_LAG_HASH_FIELD_ENABLE_OUTER_IPV4_TCP_UDP",
-              "SX_LAG_HASH_FIELD_ENABLE_OUTER_IPV6_NON_TCP_UDP",
-              "SX_LAG_HASH_FIELD_ENABLE_OUTER_IPV6_TCP_UDP",
-              "SX_LAG_HASH_FIELD_ENABLE_OUTER_L4_IPV4",
-              "SX_LAG_HASH_FIELD_ENABLE_OUTER_L4_IPV6",
-              "SX_LAG_HASH_FIELD_ENABLE_INNER_L2_NON_IP",
-              "SX_LAG_HASH_FIELD_ENABLE_INNER_L2_IPV4",
-              "SX_LAG_HASH_FIELD_ENABLE_INNER_L2_IPV6",
-              "SX_LAG_HASH_FIELD_ENABLE_INNER_IPV4_NON_TCP_UDP",
-              "SX_LAG_HASH_FIELD_ENABLE_INNER_IPV4_TCP_UDP",
-              "SX_LAG_HASH_FIELD_ENABLE_INNER_IPV6_NON_TCP_UDP",
-              "SX_LAG_HASH_FIELD_ENABLE_INNER_IPV6_TCP_UDP",
-              "SX_LAG_HASH_FIELD_ENABLE_INNER_L4_IPV4",
-              "SX_LAG_HASH_FIELD_ENABLE_INNER_L4_IPV6"            
-          ],
-          "hash_fields": [
-              "SX_LAG_HASH_OUTER_SMAC",
-              "SX_LAG_HASH_OUTER_DMAC",
-              "SX_LAG_HASH_OUTER_ETHERTYPE",
-              "SX_LAG_HASH_OUTER_IPV4_SIP_BYTE_0",
-              "SX_LAG_HASH_OUTER_IPV4_SIP_BYTE_1",
-              "SX_LAG_HASH_OUTER_IPV4_SIP_BYTE_2",
-              "SX_LAG_HASH_OUTER_IPV4_SIP_BYTE_3",
-              "SX_LAG_HASH_OUTER_IPV4_DIP_BYTE_0",
-              "SX_LAG_HASH_OUTER_IPV4_DIP_BYTE_1",
-              "SX_LAG_HASH_OUTER_IPV4_DIP_BYTE_2",
-              "SX_LAG_HASH_OUTER_IPV4_DIP_BYTE_3",
-              "SX_LAG_HASH_OUTER_IPV4_PROTOCOL",
-              "SX_LAG_HASH_OUTER_IPV6_SIP_BYTES_0_TO_7",
-              "SX_LAG_HASH_OUTER_IPV6_SIP_BYTE_8",
-              "SX_LAG_HASH_OUTER_IPV6_SIP_BYTE_9",
-              "SX_LAG_HASH_OUTER_IPV6_SIP_BYTE_10",
-              "SX_LAG_HASH_OUTER_IPV6_SIP_BYTE_11",
-              "SX_LAG_HASH_OUTER_IPV6_SIP_BYTE_12",
-              "SX_LAG_HASH_OUTER_IPV6_SIP_BYTE_13",
-              "SX_LAG_HASH_OUTER_IPV6_SIP_BYTE_14",
-              "SX_LAG_HASH_OUTER_IPV6_SIP_BYTE_15",
-              "SX_LAG_HASH_OUTER_IPV6_DIP_BYTES_0_TO_7",
-              "SX_LAG_HASH_OUTER_IPV6_DIP_BYTE_8",
-              "SX_LAG_HASH_OUTER_IPV6_DIP_BYTE_9",
-              "SX_LAG_HASH_OUTER_IPV6_DIP_BYTE_10",
-              "SX_LAG_HASH_OUTER_IPV6_DIP_BYTE_11",
-              "SX_LAG_HASH_OUTER_IPV6_DIP_BYTE_12",
-              "SX_LAG_HASH_OUTER_IPV6_DIP_BYTE_13",
-              "SX_LAG_HASH_OUTER_IPV6_DIP_BYTE_14",
-              "SX_LAG_HASH_OUTER_IPV6_DIP_BYTE_15",
-              "SX_LAG_HASH_OUTER_IPV6_NEXT_HEADER",
-              "SX_LAG_HASH_INNER_SMAC",
-              "SX_LAG_HASH_INNER_DMAC",
-              "SX_LAG_HASH_INNER_ETHERTYPE",
-              "SX_LAG_HASH_INNER_IPV4_SIP_BYTE_0",
-              "SX_LAG_HASH_INNER_IPV4_SIP_BYTE_1",
-              "SX_LAG_HASH_INNER_IPV4_SIP_BYTE_2",
-              "SX_LAG_HASH_INNER_IPV4_SIP_BYTE_3",
-              "SX_LAG_HASH_INNER_IPV4_DIP_BYTE_0",
-              "SX_LAG_HASH_INNER_IPV4_DIP_BYTE_1",
-              "SX_LAG_HASH_INNER_IPV4_DIP_BYTE_2",
-              "SX_LAG_HASH_INNER_IPV4_DIP_BYTE_3",
-              "SX_LAG_HASH_INNER_IPV4_PROTOCOL",
-              "SX_LAG_HASH_INNER_IPV6_SIP_BYTES_0_TO_7",
-              "SX_LAG_HASH_INNER_IPV6_SIP_BYTE_8",
-              "SX_LAG_HASH_INNER_IPV6_SIP_BYTE_9",
-              "SX_LAG_HASH_INNER_IPV6_SIP_BYTE_10",
-              "SX_LAG_HASH_INNER_IPV6_SIP_BYTE_11",
-              "SX_LAG_HASH_INNER_IPV6_SIP_BYTE_12",
-              "SX_LAG_HASH_INNER_IPV6_SIP_BYTE_13",
-              "SX_LAG_HASH_INNER_IPV6_SIP_BYTE_14",
-              "SX_LAG_HASH_INNER_IPV6_SIP_BYTE_15",
-              "SX_LAG_HASH_INNER_IPV6_DIP_BYTES_0_TO_7",
-              "SX_LAG_HASH_INNER_IPV6_DIP_BYTE_8",
-              "SX_LAG_HASH_INNER_IPV6_DIP_BYTE_9",
-              "SX_LAG_HASH_INNER_IPV6_DIP_BYTE_10",
-              "SX_LAG_HASH_INNER_IPV6_DIP_BYTE_11",
-              "SX_LAG_HASH_INNER_IPV6_DIP_BYTE_12",
-              "SX_LAG_HASH_INNER_IPV6_DIP_BYTE_13",
-              "SX_LAG_HASH_INNER_IPV6_DIP_BYTE_14",
-              "SX_LAG_HASH_INNER_IPV6_DIP_BYTE_15"
-          ]
-      }
+    "all": {
+      "hash_params": {
+          "hash_type": "SX_LAG_HASH_TYPE_RANDOM",
+          "symmetric_hash": true
+      },
+      "hash_fields_enable": [
+      ],
+      "hash_fields": [
+      ]
+    }
   }
 }

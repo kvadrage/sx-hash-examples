@@ -18,6 +18,140 @@ Then create LAG hash configuration file: `vi /etc/sx_hash/sx_lag_hash.json`
 # Usage
 This script reads custom LAG hash configuration from `/etc/sx_hash/sx_lag_hash.json` file and applies new LAG Hash parameters using Mellanox SX SDK API.
 
+## Docker build
+You can also create a docker image with this script inside to be launched on container start.
+
+To create a docker image run: `./build.sh <VERSION>`
+
+Example:
+```
+$ git clone https://github.com/kvadrage/sx-hash-examples/
+$ cd sx-hash-examples/sx-lag-hash
+$ ./build.sh 0.2
+Sending build context to Docker daemon  56.32kB
+Step 1/6 : FROM ubuntu:latest
+ ---> 72300a873c2c
+Step 2/6 : RUN apt update && apt --no-install-recommends -y install python
+ ---> Running in 30a514d9d07a
+<...>
+Successfully built dc4f5dd2ea05
+Successfully tagged sdk-lag-hash:0.2
+$ ls sdk_lag_hash_0.2.tar.gz 
+sdk_lag_hash_0.2.tar.gz
+```
+
+## Running Docker container in Onyx
+Example how to run a docker image with this script inside Mellanox Onyx:
+
+```
+sw1 [standalone: master] (config) # image fetch scp://user@x.x.x.x/home/user/sdk_lag_hash_0.2.tar.gz
+Password (if required): *******
+ 100.0%  [#################################################################]  
+sw1 [standalone: master] (config) # docker 
+sw1 [standalone: master] (config docker) # no shutdown
+sw1 [standalone: master] (config docker) # load sdk_lag_hash_0.2.tar.gz 
+cc4590d6a718: Loading layer  65.58MB/65.58MB
+8c98131d2d1d: Loading layer  991.2kB/991.2kB
+03c9b9f537a4: Loading layer  15.87kB/15.87kB
+1852b2300972: Loading layer  3.072kB/3.072kB
+772ff43086fb: Loading layer  59.08MB/59.08MB
+19be54c09e5f: Loading layer  14.85kB/14.85kB
+acfe33f3edee: Loading layer  3.584kB/3.584kB
+Loaded image: sdk-lag-hash:0.2
+
+# run temporary container and copy SX SDK API libraries into it
+sw1 [standalone: master] (config docker) # start sdk-lag-hash 0.2 sdk-lag-hash-temp now privileged sdk
+Attempting to start docker container. Please wait (this can take a minute)...
+sw1 [standalone: master] (config docker) # copy-sdk sdk-lag-hash-temp to /
+Copying SDK files to docker container. Please wait (this can take a minute)...
+
+# commit these changes and create final image with SX SDK libraries inside
+sw1 [standalone: master] (config docker) # commit sdk-lag-hash-temp sdk-lag-hash-sdk 0.2
+committing docker container. Please wait (this can take a minute)...
+
+# run new container from the final image and enable autostart for it
+sw1 [standalone: master] (config docker) # start sdk-lag-hash-sdk 0.2 sdk-lag-hash now-and-init privileged sdk
+Attempting to start docker container. Please wait (this can take a minute)...
+
+# remove the temporary container from configuration
+sw1 [standalone: master] (config docker) # no start sdk-lag-hash-temp 
+Stopping docker container. Please wait (this can take a minute)...
+sw1 [standalone: master] (config docker) # exit
+sw1 [standalone: master] (config) # wr mem
+sw1 [standalone: master] (config) # 
+
+
+# Verifying that container with sx-lag-hash script correctly starts after switch boot
+sw1 [standalone: master] (config) # reload
+## Reconnect to switch after it's booted
+sw1 [standalone: master] > en
+sw1 [standalone: master] # conf t
+sw1 [standalone: master] (config) # show docker ps
+-------------------------------------------------------------------------------------------
+Container           Image:Version           Created                Status                  
+-------------------------------------------------------------------------------------------
+sdk-lag-hash        sdk-lag-hash-sdk:0.2    8 minutes ago          Exited (0) 2 minutes ago
+sw1 [standalone: master] (config) # 
+
+# (optional) verify that LAG Hash configuration was changed by the script
+sw1 [standalone: master] (config) # debug generate dump 
+Generated dump sysdump-sw1-20200223-184428.tgz
+sw1 [standalone: master] (config) # 
+## upload debug dump to external machine for analysis
+sw1 [standalone: master] (config) # file debug-dump upload latest scp://user@x.x.x.x/home/alex/
+Uploading file sysdump-sw1-20200223-184428.tgz
+Password (if required): *******
+sw1 [standalone: master] (config) # 
+
+## untar the dump and check sdkdump inside it
+user@srv:~$ tar xf sysdump-sw1-20200223-184428.tgz
+user@srv:~$ cd sysdump-sw1-20200223-184428
+user@srv:~/sysdump-sw1-20200223-184428$ 
+alex@microserver:~/sysdump-sw1-20200223-184428$ cat sdkdump | grep -A 40 "LAG Dump"
+SDK LAG Dump                       
+..................................................
+Lag Hash Type                            0
+Lag Hash                                 32382    
+Lag Seed                                 827798783
+Is Lag Hash Symmetric                    FALSE
+                                                                       
+..................................................
+LAG Hash Params
+..................................................
+Is Global Mode:                          FALSE
+
+LAG Global Hash Params
+..............................
+Global LAG Hash Type:                    CRC
+Global Symmetric Hash                    FALSE
+Global Seed                              827798783
+Global LAG Hash:                         32382
+
+LAG Hash Fields
+..............................
+SMAC_IP                                  
+SMAC_NON_IP                              
+DMAC_IP                                  
+DMAC_NON_IP                              
+ETHER_IP                                 
+ETHER_NON_IP                             
+SRC_IP                                   
+DST_IP                                   
+L4_SRC_PORT                              
+L4_DST_PORT                              
+L3_PROTOCOL                              
+IPV6_FLOW_LABEL                          
+
+..................................................
+LAG Hash Fields of Port: 0x00010100
+..................................................
+LAG Hash Type:                           Random
+Symmetric Hash                           TRUE
+Seed                                     827798783
+LAG field enables count:                 0
+<...>
+```
+
 ## Considerations
 There're two different LAG Hash configuration modes upported in Mellanox SX SDK API for Spectrum switches:
 - **Global configuration mode (legacy API)** - allows configuring only limited number of packet fields for LAG hashing 
