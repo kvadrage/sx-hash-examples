@@ -197,7 +197,7 @@ def apply_port_lag_hash_cfg(handle, port_hash_config):
         is_nve = check_nve(int(port_attributes.log_port))
         if is_nve or is_vport:
             continue    
-        port_name = "%s" % (port_attributes.port_mapping.module_port + 1)
+        port_name = "%d" % (port_attributes.port_mapping.module_port + 1)
         ports_map.append((port_name, port_attributes.log_port))
     
     # try to get existing global LAG hash configuration
@@ -222,7 +222,7 @@ def apply_port_lag_hash_cfg(handle, port_hash_config):
     result = 0
     # iterate all specific ports in the config
     for port_name, hash_config in port_hash_config.items(): 
-        ports = [(port_name, log_port) for name,log_port in ports_map if name in port_name]
+        ports = [(port_name, log_port) for name,log_port in ports_map if name == port_name]
         if not ports:
             print("[--] Port %s doesn't exist" % port_name)
             continue
