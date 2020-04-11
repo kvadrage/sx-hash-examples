@@ -27,29 +27,29 @@ Example:
 ```
 $ git clone https://github.com/kvadrage/sx-hash-examples/
 $ cd sx-hash-examples/sx-lag-hash
-$ ./build.sh 0.2
+$ ./build.sh 0.1
 Sending build context to Docker daemon  56.32kB
-Step 1/6 : FROM ubuntu:latest
+Step 1/6 : FROM ubuntu:bionic
  ---> 72300a873c2c
 Step 2/6 : RUN apt update && apt --no-install-recommends -y install python
  ---> Running in 30a514d9d07a
 <...>
 Successfully built dc4f5dd2ea05
-Successfully tagged sdk-lag-hash:0.2
-$ ls sdk_lag_hash_0.2.tar.gz 
-sdk_lag_hash_0.2.tar.gz
+Successfully tagged sx-lag-hash:0.1
+$ ls sx_lag_hash_0.1.tar.gz 
+sx_lag_hash_0.1.tar.gz
 ```
 
 ## Running Docker container in Onyx
 Example how to run a docker image with this script inside Mellanox Onyx:
 
 ```
-sw1 [standalone: master] (config) # image fetch scp://user@x.x.x.x/home/user/sdk_lag_hash_0.2.tar.gz
+sw1 [standalone: master] (config) # image fetch scp://user@x.x.x.x/home/user/sx_lag_hash_0.1.tar.gz
 Password (if required): *******
  100.0%  [#################################################################]  
 sw1 [standalone: master] (config) # docker 
 sw1 [standalone: master] (config docker) # no shutdown
-sw1 [standalone: master] (config docker) # load sdk_lag_hash_0.2.tar.gz 
+sw1 [standalone: master] (config docker) # load sx_lag_hash_0.1.tar.gz 
 cc4590d6a718: Loading layer  65.58MB/65.58MB
 8c98131d2d1d: Loading layer  991.2kB/991.2kB
 03c9b9f537a4: Loading layer  15.87kB/15.87kB
@@ -57,24 +57,24 @@ cc4590d6a718: Loading layer  65.58MB/65.58MB
 772ff43086fb: Loading layer  59.08MB/59.08MB
 19be54c09e5f: Loading layer  14.85kB/14.85kB
 acfe33f3edee: Loading layer  3.584kB/3.584kB
-Loaded image: sdk-lag-hash:0.2
+Loaded image: sx-lag-hash:0.1
 
 # run temporary container and copy SX SDK API libraries into it
-sw1 [standalone: master] (config docker) # start sdk-lag-hash 0.2 sdk-lag-hash-temp now privileged sdk
+sw1 [standalone: master] (config docker) # start sx-lag-hash 0.1 sx-lag-hash-temp now privileged sdk
 Attempting to start docker container. Please wait (this can take a minute)...
-sw1 [standalone: master] (config docker) # copy-sdk sdk-lag-hash-temp to /
+sw1 [standalone: master] (config docker) # copy-sdk sx-lag-hash-temp to /
 Copying SDK files to docker container. Please wait (this can take a minute)...
 
 # commit these changes and create final image with SX SDK libraries inside
-sw1 [standalone: master] (config docker) # commit sdk-lag-hash-temp sdk-lag-hash-sdk 0.2
+sw1 [standalone: master] (config docker) # commit sx-lag-hash-temp sx-lag-hash-sdk 0.1
 committing docker container. Please wait (this can take a minute)...
 
 # run new container from the final image and enable autostart for it
-sw1 [standalone: master] (config docker) # start sdk-lag-hash-sdk 0.2 sdk-lag-hash now-and-init privileged sdk
+sw1 [standalone: master] (config docker) # start sx-lag-hash-sdk 0.1 sx-lag-hash now-and-init privileged sdk
 Attempting to start docker container. Please wait (this can take a minute)...
 
 # remove the temporary container from configuration
-sw1 [standalone: master] (config docker) # no start sdk-lag-hash-temp 
+sw1 [standalone: master] (config docker) # no start sx-lag-hash-temp 
 Stopping docker container. Please wait (this can take a minute)...
 sw1 [standalone: master] (config docker) # exit
 sw1 [standalone: master] (config) # wr mem
@@ -90,7 +90,7 @@ sw1 [standalone: master] (config) # show docker ps
 -------------------------------------------------------------------------------------------
 Container           Image:Version           Created                Status                  
 -------------------------------------------------------------------------------------------
-sdk-lag-hash        sdk-lag-hash-sdk:0.2    8 minutes ago          Exited (0) 2 minutes ago
+sx-lag-hash        sx-lag-hash-sdk:0.1    8 minutes ago          Exited (0) 2 minutes ago
 sw1 [standalone: master] (config) # 
 
 # (optional) verify that LAG Hash configuration was changed by the script

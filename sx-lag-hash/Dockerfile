@@ -1,6 +1,6 @@
 # sx_lag_hash container
 
-FROM ubuntu:latest
+FROM ubuntu:bionic
 RUN apt update && apt --no-install-recommends -y install python
 
 WORKDIR /

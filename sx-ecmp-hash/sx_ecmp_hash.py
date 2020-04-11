@@ -27,14 +27,19 @@ SX_ROUTER_ECMP_HASH_TYPES = {name: num for name, num in vars(sx).items() if name
 SX_ROUTER_PORT_ECMP_HASH_FIELDS_ENABLE = {name: num for name, num in vars(sx).items() if name.startswith("SX_ROUTER_ECMP_HASH_FIELD_ENABLE")}
 SX_ROUTER_PORT_ECMP_HASH_FIELDS = {name: num for name, num in vars(sx).items() if name.startswith("SX_ROUTER_ECMP_HASH")}
 
-PORT_TYPE_NVE = 8
 PORT_TYPE_VPORT = 2
+PORT_TYPE_CPU = 4
+PORT_TYPE_NVE = 8
 PORT_TYPE_OFFSET = 28
 PORT_TYPE_MASK = 0xF0000000
 
 def check_vport(port):
     port_type = (port & PORT_TYPE_MASK) >> PORT_TYPE_OFFSET
     return port_type & PORT_TYPE_VPORT
+
+def check_cpu(port):
+    port_type = (port & PORT_TYPE_MASK) >> PORT_TYPE_OFFSET
+    return port_type & PORT_TYPE_CPU
 
 def check_nve(port):
     port_type = (port & PORT_TYPE_MASK) >> PORT_TYPE_OFFSET
@@ -198,9 +203,10 @@ def apply_port_ecmp_hash_cfg(handle, port_hash_config):
     for i in range(port_cnt):
         port_attributes = sx.sx_port_attributes_t_arr_getitem(port_attributes_list, i)
         is_vport = check_vport(int(port_attributes.log_port))
+        is_cpu = check_cpu(int(port_attributes.log_port))
         is_nve = check_nve(int(port_attributes.log_port))
-        if is_nve or is_vport:
-            continue    
+        if is_vport or is_cpu or is_nve:
+            continue 
         port_name = "%d" % (port_attributes.port_mapping.module_port + 1)
         ports_map.append((port_name, port_attributes.log_port))
     
