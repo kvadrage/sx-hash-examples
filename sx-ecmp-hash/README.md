@@ -92,6 +92,7 @@ Container           Image:Version           Created                Status
 -------------------------------------------------------------------------------------------
 sx-ecmp-hash        sx-ecmp-hash-sdk:0.1    8 minutes ago          Exited (0) 2 minutes ago
 sw1 [standalone: master] (config) # 
+```
 
 ## Considerations
 There're two different ECMP Hash configuration modes upported in Mellanox SX SDK API for Spectrum switches:
